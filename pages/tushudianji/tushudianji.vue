@@ -1,0 +1,331 @@
+<template>
+  <view class="container">
+    <!-- 状态栏占位 -->
+    <view class="status-bar"></view>
+    
+    <!-- 自定义导航栏 -->
+    <view class="custom-nav">
+      <view class="nav-left">
+        <u-icon name="arrow-left" color="#ffffff" size="20"></u-icon>
+      </view>
+      <view class="nav-center">图书典籍</view>
+      <view class="nav-right">
+        <u-icon name="more-dot" color="#ffffff" size="22"></u-icon>
+        <u-switch v-model="switchStatus" size="24" active-color="#ffffff" inactive-color="#ffffff"></u-switch>
+      </view>
+    </view>
+    
+    <!-- 自定义搜索框 -->
+    <view class="search-container">
+      <view class="search-box">
+        <u-icon name="search" color="#cccccc" size="16" class="search-icon"></u-icon>
+        <input 
+          type="text" 
+          placeholder="搜索中医典籍..." 
+          v-model="searchText"
+          class="search-input"
+        >
+      </view>
+    </view>
+    
+    <!-- 内容滚动区 -->
+    <scroll-view class="content-scroll" scroll-y>
+      <view class="content-container">
+        <!-- 左侧导航栏(5个图标) -->
+        <view class="left-nav">
+          <view class="nav-item active">
+            <view class="nav-icon">
+              <image src="/static/书.png" mode="aspectFit" class="nav-img"></image>
+            </view>
+            <text class="nav-text">经典医著</text>
+          </view>
+          <view class="nav-item">
+            <view class="nav-icon">
+              <image src="/static/展示-叶子.png" aspectFit class="nav-img"></image>
+            </view>
+            <text class="nav-text">方剂典籍</text>
+          </view>
+          <view class="nav-item">
+            <view class="nav-icon">
+              <image src="/static/齿轮.png" mode="aspectFit" class="nav-img"></image>
+            </view>
+            <text class="nav-text">针灸类书</text>
+          </view>
+          <view class="nav-item">
+            <view class="nav-icon">
+              <image src="/static/爱心.png" mode="aspectFit" class="nav-img"></image>
+            </view>
+            <text class="nav-text">养生保健</text>
+          </view>
+          <view class="nav-item">
+            <view class="nav-icon">
+              <image src="/static/医院.png" mode="aspectFit" class="nav-img"></image>
+            </view>
+            <text class="nav-text">现代医论</text>
+          </view>
+        </view>
+        
+        <!-- 右侧典籍列表(4本书籍封面) -->
+        <view class="book-list">
+          <view class="book-item" v-for="(book, index) in books" :key="index">
+            <image :src="book.cover" class="book-cover" mode="aspectFill"></image>
+            <view class="book-info">
+              <text class="book-title">{{ book.title }}</text>
+              <text class="book-author">作者: {{ book.author }}</text>
+              <text class="book-publisher">出版社: {{ book.publisher }}</text>
+              <text class="book-desc">{{ book.description }}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      searchText: '',
+      switchStatus: true,
+      books: [
+        {
+          title: '黄帝内经',
+          author: '佚名',
+          publisher: '中医古籍出版社',
+          description: '中医理论的奠基之作，是中国现存最早的医学典籍，由《素问》和《灵枢》两部分组成。',
+          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211399529876.jpg'  // 1.黄帝内经封面
+        },
+        {
+          title: '伤寒论',
+          author: '张仲景',
+          publisher: '人民卫生出版社',
+          description: '汉代医学家张仲景所著的中医经典著作，是中医临床辨证论治的奠基之作。',
+          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211359302921.jpg'  // 2.伤寒论封面
+        },
+        {
+          title: '金匮要略',
+          author: '张仲景',
+          publisher: '中国中医药出版社',
+          description: '与《伤寒论》合称为《伤寒杂病论》，是中医临床的经典著作之一。',
+          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211308569769.jpg'  // 3.金匮要略封面
+        },
+        {
+          title: '神农本草经',
+          author: '佚名',
+          publisher: '中医古籍出版社',
+          description: '中国现存最早的药物学专著，被誉为中药学经典著作，收载药物365种。',
+          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211359421375.jpg'  // 4.神农本草经封面
+        }
+      ]
+    }
+  }
+}
+</script>
+
+<style scoped>
+/* 状态栏占位 */
+.status-bar {
+  height: var(--status-bar-height, 0);
+  width: 100%;
+  background-color: #00a651;
+}
+
+/* 自定义导航栏 */
+.custom-nav {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: #00a651;
+  padding: 0 15px;
+  position: fixed;
+  top: var(--status-bar-height, 0);
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.nav-left {
+  margin-right: 10px;
+}
+
+.nav-center {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: center;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* 搜索框容器 */
+.search-container {
+  padding: 10px 15px;
+  background-color: #00a651;
+  position: fixed;
+  top: calc(50px + var(--status-bar-height, 0));
+  left: 0;
+  right: 0;
+  z-index: 998;
+}
+
+/* 自定义搜索框样式 */
+.search-box {
+  background-color: #ffffff;
+  border-radius: 8px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+}
+
+.search-icon {
+  margin-right: 8px;
+}
+
+.search-input {
+  flex: 0 1 auto;
+  height: 100%;
+  font-size: 14px;
+  color: #333333;
+  border: none;
+  outline: none;
+  background: transparent;
+  min-width: 0;
+  text-align: center;
+}
+
+.search-input::placeholder {
+  color: #cccccc;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* 内容滚动区 */
+.content-scroll {
+  width: 100%;
+  height: calc(100vh - 50px - 46px - var(--status-bar-height, 0));
+  position: fixed;
+  top: calc(50px + 46px + var(--status-bar-height, 0));
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* 内容容器 */
+.content-container {
+  display: flex;
+  min-height: 100%;
+  padding-bottom: 20px;
+}
+
+/* 左侧导航栏(5个图标) */
+.left-nav {
+  width: 80px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15px;
+  margin-right: 10px;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+  color: #666666;
+  opacity: 0.7;
+  width: 100%;
+  padding: 12px 0;
+  box-sizing: border-box;
+}
+
+.nav-item.active {
+  color: #00a651;
+  opacity: 1;
+  background-color: #f0f7f3;
+  border-radius: 0 15px 15px 0;
+}
+
+.nav-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #f0f7f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.nav-img {
+  width: 22px;
+  height: 22px;
+}
+
+.nav-text {
+  font-size: 12px;
+  text-align: center;
+}
+
+/* 右侧典籍列表(4本书籍封面) */
+.book-list {
+  flex: 1;
+  padding: 15px 15px 0 0;
+}
+
+.book-item {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  gap: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.book-cover {
+  width: 80px;
+  height: 110px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  background-color: #f5f5f5;
+}
+
+.book-info {
+  flex: 1;
+}
+
+.book-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.book-author, .book-publisher {
+  font-size: 12px;
+  color: #999999;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.book-desc {
+  font-size: 13px;
+  color: #666666;
+  margin-top: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
