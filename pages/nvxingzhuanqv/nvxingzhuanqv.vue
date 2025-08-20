@@ -6,7 +6,7 @@
     <!-- 导航栏 -->
     <view class="nav-bar">
       <view class="nav-back" @click="goBack" hover-class="nav-back--hover">←</view>
-      <view class="nav-title">男性专区</view>
+      <view class="nav-title">女性专区</view>
     </view>
 
     <!-- 轮播图（仅图片轮播，保持原色系） -->
@@ -28,7 +28,7 @@
         <view class="item-icon" :style="{ backgroundImage: 'url(' + item.icon + ')' }"></view>
         <view class="item-name">{{ item.name }}</view>
         <view class="item-arrow">→</view>
-	  </view>
+      </view>
     </view>
 
     <!-- 四个小按钮（保留原蓝灰+橙色选中，优化圆角） -->
@@ -68,37 +68,38 @@ export default {
       statusBarHeight: 0,
       isActive: [false, false, false, false, false, false],
 	  isClicking: [false, false, false, false, false, false], // 新增点击状态数组
+	  activeTag: 0,
       activeTag: 0,
       // 轮播图图片列表（新增）
       bannerImages: [
-        '/static/男轮播.png' // 实际轮播图1
+        '/static/女轮播.png' // 实际轮播图1
       ],
       // 功能按钮数据（保留原图标路径）
       funcItems: [
-        { name: '体质自测', icon: '/static/自己-01.png' },
-        { name: '症状自检', icon: '/static/医防结合.png' },
-        { name: '肾虚调理', icon: '/static/药品,药物,违禁品,违禁药物.png' },
-        { name: '脱发防治', icon: '/static/头颅CT.png' },
-        { name: '精力提升', icon: '/static/精力-copy.png' },
-        { name: '食疗推荐', icon: '/static/刀叉.png' }
+        { name: '月经调理', icon: '/static/月亮.png' },
+        { name: '乳腺养护', icon: '/static/花朵.png' },
+        { name: '孕产护理', icon: '/static/孕妇护理.png' },
+        { name: '抗衰美容', icon: '/static/心脏.png' },
+        { name: '更年期指南', icon: '/static/太极.png' },
+        { name: '汉方茶饮', icon: '/static/茶.png' }
       ],
       // 专区模块数据
       topicModules: [
         {
-          img: '/static/男1.png',
-          title: '前列腺保健指南',
-          desc: '从中医角度探讨前列腺健康',
+          img: '/static/女1.png',
+          title: '经期调理指南',
+          desc: '从中医角度探讨经期健康',
           likeCount: '2.5万'
         },
         {
-          img: '/static/男2.png',
-          title: '肾虚自测方法',
+          img: '/static/女2.png',
+          title: '乳腺自检方法',
           desc: '10个信号提示你该调理了',
           likeCount: '1.8万'
         },
         {
-          img: '/static/男3.png',
-          title: '四季养生食谱',
+          img: '/static/女3.png',
+          title: '四季养颜食谱',
           desc: '顺应节气的饮食调理方案',
           likeCount: '3.2万'
         }
@@ -116,19 +117,19 @@ export default {
   },
   methods: {
 	// 优化点击处理函数，添加状态反馈
-    handleFuncClick(index, name) {
-      // 设置点击状态为true，0.1秒后恢复
-      this.$set(this.isClicking, index, true);
-      setTimeout(() => {
-        this.$set(this.isClicking, index, false);
-      }, 100);
-      
-      // 显示提示信息
-      this.showToast(name);
-      
-      // 切换激活状态（如果需要保留激活效果）
-      this.isActive = this.isActive.map((_, i) => i === index);
-    },
+	handleFuncClick(index, name) {
+	  // 设置点击状态为true，0.1秒后恢复
+	  this.$set(this.isClicking, index, true);
+	  setTimeout(() => {
+	    this.$set(this.isClicking, index, false);
+	  }, 100);
+	  
+	  // 显示提示信息
+	  this.showToast(name);
+	  
+	  // 切换激活状态（如果需要保留激活效果）
+	  this.isActive = this.isActive.map((_, i) => i === index);
+	}, 
     goBack() {
       uni.navigateBack();
     },
@@ -143,7 +144,7 @@ export default {
   },
   computed: {
     tags() {
-      return ['前列腺', '脾胃', '睡眠', '性功能'];
+      return ['经期', '乳腺', '孕产', '护肤','养颜'];
     }
   }
 };
@@ -166,7 +167,7 @@ page {
 /* 导航栏（保留原蓝灰色） */
 .nav-bar {
   height: 46px;
-  background-color: #335c81;
+  background-color: #ffaac1;
   display: flex;
   align-items: center;
   padding: 0 15px;
@@ -244,7 +245,7 @@ page {
 }
 
 .func-item {
-  background-color: #8993a3; /* 原蓝灰底色保留 */
+  background-color: #ffb3b4; /* 原蓝灰底色保留 */
   border-radius: 14px;
   padding: 20px 15px;
   display: flex;
@@ -252,6 +253,7 @@ page {
   color: white;
   transition: all 0.15s ease;
   box-shadow: 0 3px 8px rgba(0,0,0,0.07); /* 新增轻微阴影 */
+  /* 原样式保持不变 */
   position: relative;
   overflow: hidden;
   transition: all 0.15s ease;
@@ -261,6 +263,7 @@ page {
   transform: scale(0.95);
   opacity: 0.85;
 }
+
 /* 点击波纹效果（可选增强效果） */
 .func-item::after {
   content: '';
@@ -269,17 +272,18 @@ page {
   left: 50%;
   width: 120px;
   height: 120px;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 60, 154, 0.3);
   border-radius: 50%;
   transform: scale(0) translate(-50%, -50%);
   transition: transform 0.3s ease;
 }
+
 .func-item.click::after {
   transform: scale(1) translate(-50%, -50%);
 }
 
 .func-item.active {
-  background-color: #8993a3; /* 原点击深色保留 */
+  background-color: #ffb3b4; /* 原点击深色保留 */
   transform: scale(0.985);
 }
 
@@ -318,13 +322,13 @@ page {
   border-radius: 22px; /* 更圆润的圆角 */
   font-size: 14px;
   color: white !important;
-  background-color: #8993a3 !important; /* 原蓝灰底色保留 */
+  background-color: #a7d5ff !important; /* 原蓝灰底色保留 */
   transition: all 0.2s ease;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .tag-item.active {
-  background-color: #ffb134 !important; /* 原橙色选中保留 */
+  background-color: #ff557f !important; /* 原橙色选中保留 */
   color: white !important;
   transform: translateY(-2px); /* 选中时轻微上浮 */
   box-shadow: 0 4px 8px rgba(255,177,52,0.2); /* 橙色光晕 */

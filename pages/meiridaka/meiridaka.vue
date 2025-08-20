@@ -47,7 +47,8 @@
     <view class="checkin-btn" @click="onCheckinClick">
       点击打卡
     </view>
-	<navigator url="/pages/nanxingzhuanqv/nanxingzhuanqv">男性</navigator>
+	<navigator url="/pages/nvxingzhuanqv/nvxingzhuanqv">女性</navigator>
+	<navigator url='/pages/nanxingzhuanqv/nanxingzhuanqv'>男性</navigator>
   </view>
 </template>
 
