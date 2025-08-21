@@ -77,7 +77,7 @@ export default {
       funcItems: [
         { name: '体质自测', icon: '/static/自己-01.png' },
         { name: '症状自检', icon: '/static/医防结合.png' },
-        { name: '肾虚调理', icon: '/static/药品,药物,违禁品,违禁药物.png' },
+        { name: '肾虚调理', icon: '/static/药片1.png' },
         { name: '脱发防治', icon: '/static/头颅CT.png' },
         { name: '精力提升', icon: '/static/精力-copy.png' },
         { name: '食疗推荐', icon: '/static/刀叉.png' }
