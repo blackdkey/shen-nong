@@ -41,7 +41,16 @@
 				"navigationBarTitleText" : "",
 				"navigationStyle": "custom" // 隐藏原生导航栏
 			}
+		},
+		{
+			"path" : "pages/jiankangyinshi/jiankangyinshi",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom" // 隐藏原生导航栏
+			}
 		}
+		
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

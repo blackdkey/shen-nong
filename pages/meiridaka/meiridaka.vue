@@ -50,6 +50,7 @@
 	<navigator url="/pages/nvxingzhuanqv/nvxingzhuanqv">女性</navigator>
 	<navigator url='/pages/nanxingzhuanqv/nanxingzhuanqv'>男性</navigator>
 	<navigator url='/pages/jingluoxuewei/jingluoxuewei'>经络穴位</navigator>
+	<navigator url='/pages/jiankangyinshi/jiankangyinshi'>健康饮食</navigator>
   </view>
 </template>
 
