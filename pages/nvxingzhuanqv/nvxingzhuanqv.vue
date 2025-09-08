@@ -5,7 +5,7 @@
 
     <!-- 导航栏 -->
     <view class="nav-bar">
-      <view class="nav-back" @click="goBack" hover-class="nav-back--hover">←</view>
+      <view class="nav-back" @click="goBack" hover-class="nav-back--hover">＜</view>
       <view class="nav-title">女性专区</view>
     </view>
 

@@ -1,7 +1,7 @@
 <template>
   <view class="container">
-    <!-- 状态栏占位 -->
-    <view class="status-bar"></view>
+    <!-- 顶部白色空间（保持原有高度） -->
+    <view class="top-white-space"></view>
     
     <!-- 自定义导航栏 -->
     <view class="custom-nav">
@@ -31,7 +31,7 @@
     <!-- 内容滚动区 -->
     <scroll-view class="content-scroll" scroll-y>
       <view class="content-container">
-        <!-- 左侧导航栏(5个图标) -->
+        <!-- 左侧导航栏 -->
         <view class="left-nav">
           <view class="nav-item active">
             <view class="nav-icon">
@@ -65,7 +65,7 @@
           </view>
         </view>
         
-        <!-- 右侧典籍列表(4本书籍封面) -->
+        <!-- 右侧典籍列表 -->
         <view class="book-list">
           <view class="book-item" v-for="(book, index) in books" :key="index">
             <image :src="book.cover" class="book-cover" mode="aspectFill"></image>
@@ -94,28 +94,28 @@ export default {
           author: '佚名',
           publisher: '中医古籍出版社',
           description: '中医理论的奠基之作，是中国现存最早的医学典籍，由《素问》和《灵枢》两部分组成。',
-          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211399529876.jpg'  // 1.黄帝内经封面
+          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211399529876.jpg'
         },
         {
           title: '伤寒论',
           author: '张仲景',
           publisher: '人民卫生出版社',
           description: '汉代医学家张仲景所著的中医经典著作，是中医临床辨证论治的奠基之作。',
-          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211359302921.jpg'  // 2.伤寒论封面
+          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211359302921.jpg'
         },
         {
           title: '金匮要略',
           author: '张仲景',
           publisher: '中国中医药出版社',
           description: '与《伤寒论》合称为《伤寒杂病论》，是中医临床的经典著作之一。',
-          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211308569769.jpg'  // 3.金匮要略封面
+          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211308569769.jpg'
         },
         {
           title: '神农本草经',
           author: '佚名',
           publisher: '中医古籍出版社',
           description: '中国现存最早的药物学专著，被誉为中药学经典著作，收载药物365种。',
-          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211359421375.jpg'  // 4.神农本草经封面
+          cover: 'https://vcg00.cfp.cn/creative/vcg/800/new/VCG211359421375.jpg'
         }
       ]
     }
@@ -124,14 +124,14 @@ export default {
 </script>
 
 <style scoped>
-/* 状态栏占位 */
-.status-bar {
-  height: var(--status-bar-height, 0);
+/* 顶部白色空间（保持原高度不变） */
+.top-white-space {
+  height: calc(var(--status-bar-height, 0px) + 20px); /* 状态栏高度 + 20px额外留白 */
+  background-color: #ffffff;
   width: 100%;
-  background-color: #00a651;
 }
 
-/* 自定义导航栏 */
+/* 自定义导航栏（关键：消除与顶部留白的间距） */
 .custom-nav {
   height: 50px;
   display: flex;
@@ -139,7 +139,7 @@ export default {
   background-color: #00a651;
   padding: 0 15px;
   position: fixed;
-  top: var(--status-bar-height, 0);
+  top: calc(var(--status-bar-height, 0px) + 20px); /* 紧贴顶部留白下方 */
   left: 0;
   right: 0;
   z-index: 999;
@@ -163,12 +163,12 @@ export default {
   gap: 15px;
 }
 
-/* 搜索框容器 */
+/* 搜索框容器（消除内部冗余间距） */
 .search-container {
-  padding: 10px 15px;
+  padding: 5px 15px; /* 最小化内边距 */
   background-color: #00a651;
   position: fixed;
-  top: calc(50px + var(--status-bar-height, 0));
+  top: calc(var(--status-bar-height, 0px) + 20px + 50px); /* 紧贴导航栏下方 */
   left: 0;
   right: 0;
   z-index: 998;
@@ -207,12 +207,12 @@ export default {
   text-align: center;
 }
 
-/* 内容滚动区 */
+/* 内容滚动区（核心：消除与搜索框的间距） */
 .content-scroll {
   width: 100%;
-  height: calc(100vh - 50px - 46px - var(--status-bar-height, 0));
+  height: calc(100vh - 50px - 46px - var(--status-bar-height, 0px) - 20px); /* 重新计算高度 */
   position: fixed;
-  top: calc(50px + 46px + var(--status-bar-height, 0));
+  top: calc(var(--status-bar-height, 0px) + 20px + 50px + 46px); /* 紧贴搜索框底部 */
   left: 0;
   right: 0;
   bottom: 0;
@@ -223,16 +223,17 @@ export default {
   display: flex;
   min-height: 100%;
   padding-bottom: 20px;
+  padding-top: 5px; /* 最小化顶部内边距 */
 }
 
-/* 左侧导航栏(5个图标) */
+/* 左侧导航栏 */
 .left-nav {
   width: 80px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 15px;
+  padding-top: 8px; /* 减少顶部内边距 */
   margin-right: 10px;
 }
 
@@ -240,11 +241,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 22px; /* 微调间距 */
   color: #666666;
   opacity: 0.7;
   width: 100%;
-  padding: 12px 0;
+  padding: 10px 0;
   box-sizing: border-box;
 }
 
@@ -263,7 +264,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .nav-img {
@@ -276,19 +277,19 @@ export default {
   text-align: center;
 }
 
-/* 右侧典籍列表(4本书籍封面) */
+/* 右侧典籍列表 */
 .book-list {
   flex: 1;
-  padding: 15px 15px 0 0;
+  padding: 5px 15px 0 0; /* 减少顶部内边距 */
 }
 
 .book-item {
   background-color: #ffffff;
   border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 15px;
+  padding: 13px;
+  margin-bottom: 12px; /* 减少书籍项间距 */
   display: flex;
-  gap: 15px;
+  gap: 13px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
@@ -308,21 +309,21 @@ export default {
   font-size: 16px;
   font-weight: 600;
   color: #333333;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   display: block;
 }
 
 .book-author, .book-publisher {
   font-size: 12px;
   color: #999999;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
   display: block;
 }
 
 .book-desc {
   font-size: 13px;
   color: #666666;
-  margin-top: 8px;
+  margin-top: 6px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

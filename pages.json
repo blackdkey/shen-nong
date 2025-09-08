@@ -49,6 +49,14 @@
 				"navigationBarTitleText" : "",
 				"navigationStyle": "custom" // 隐藏原生导航栏
 			}
+		},
+		{
+			"path" : "pages/yianku/yianku",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
 		}
 		
 	],
