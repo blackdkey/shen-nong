@@ -1,0 +1,161 @@
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.container.data-v-bddd4350 {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f8f8;
+}
+
+/* 状态栏 */
+.status-bar.data-v-bddd4350 {
+  width: 100%;
+  background-color: #fff;
+}
+
+/* 导航栏（返回按钮居左，标题居中） */
+.nav-bar.data-v-bddd4350 {
+  height: 40px;
+  background-color: #178f3d;
+  display: flex;
+  align-items: center;
+  /* 垂直居中 */
+  padding: 0 20rpx;
+  /* 左右内边距 */
+  position: relative;
+  /* 为标题绝对定位提供参照 */
+}
+
+/* 返回按钮（居左） */
+.back-btn.data-v-bddd4350 {
+  color: #fff;
+  font-size: 36rpx;
+  cursor: pointer;
+  z-index: 1;
+  /* 确保在标题上层 */
+}
+.back-btn--hover.data-v-bddd4350 {
+  opacity: 0.8;
+  /* 点击时透明度变化 */
+}
+
+/* 标题（居中） */
+.nav-title.data-v-bddd4350 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  /* 水平居中 */
+  font-size: 34rpx;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* 搜索栏 */
+.search-bar.data-v-bddd4350 {
+  width: 80%;
+  height: 56rpx;
+  margin: 10rpx auto;
+  padding: 0 20rpx;
+  background-color: #eaeaea;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+.search-icon.data-v-bddd4350 {
+  width: 22rpx;
+  height: 22rpx;
+  opacity: 0.6;
+}
+.search-input.data-v-bddd4350 {
+  flex: 1;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 26rpx;
+  color: #333;
+}
+
+/* 主体内容 */
+.main-content.data-v-bddd4350 {
+  flex: 1;
+  display: flex;
+  background-color: #fff;
+  margin-top: 8rpx;
+  overflow: hidden;
+}
+
+/* 左侧分类栏 */
+.category-list.data-v-bddd4350 {
+  width: 160rpx;
+  height: 100%;
+  background-color: #f5f0e6;
+}
+.category-item.data-v-bddd4350 {
+  height: 75rpx;
+  line-height: 75rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #333;
+  cursor: pointer;
+}
+.category-item.active.data-v-bddd4350 {
+  background-color: #fff;
+  color: #00aa00;
+  font-weight: 500;
+}
+
+/* 右侧标签区域 */
+.tag-container.data-v-bddd4350 {
+  flex: 1;
+  height: 100%;
+  padding: 15rpx 10rpx;
+}
+.tag-rows.data-v-bddd4350 {
+  width: 100%;
+}
+.tag-row.data-v-bddd4350 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8rpx;
+}
+.tag.data-v-bddd4350 {
+  height: 60rpx;
+  line-height: 60rpx;
+  padding: 0 20rpx;
+  margin-right: 12rpx;
+  background-color: #ffffff;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 6rpx;
+  font-size: 24rpx;
+  color: #333;
+  white-space: nowrap;
+}
+.tag.data-v-bddd4350:last-child {
+  margin-right: 0;
+}

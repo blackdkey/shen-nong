@@ -1,0 +1,165 @@
+
+/* 状态栏占位 */
+.status-bar {
+  height: var(--status-bar-height, 0);
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* 自定义导航栏样式 */
+.custom-nav {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+  position: fixed;
+  top: var(--status-bar-height, 0);
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+.nav-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333333;
+}
+.container {
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* 日期信息样式 */
+.date-info {
+  text-align: center;
+  margin-bottom: 25px;
+  padding: 20px 15px;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+}
+.date-info .year-month {
+  font-size: 22px;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 8px;
+}
+.date-info .date-week {
+  font-size: 16px;
+  color: #555555;
+  margin-bottom: 5px;
+}
+.date-info .lunar-date {
+  font-size: 14px;
+  color: #777777;
+}
+
+/* 星期标题样式 */
+.weekdays {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.weekdays .weekday {
+  width: 14.28%;
+  text-align: center;
+  font-size: 14px;
+  color: #666666;
+}
+
+/* 日历样式 */
+.calendar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.calendar .calendar-day {
+  width: 14.28%;
+  height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #666666;
+  position: relative;
+}
+.calendar .calendar-day.checked {
+  color: #187a11;
+}
+.calendar .calendar-day.current {
+  color: #333333;
+  font-weight: 500;
+  position: relative;
+}
+.calendar .calendar-day.current::before {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #187a11;
+}
+
+/* 日期下方的点 */
+.calendar .dot {
+  position: absolute;
+  bottom: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #d0d0d0;
+}
+.calendar .dot.active {
+  background-color: #187a11;
+}
+
+/* 积分显示样式 */
+.score-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 15px;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+.score-section .score-label {
+  font-size: 16px;
+  color: #555555;
+  margin-right: 8px;
+}
+.score-section .score-value {
+  font-size: 18px;
+  font-weight: 500;
+  color: #187a11;
+  margin-right: 12px;
+}
+.score-section .score-question {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #d0d0d0;
+  color: #777777;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 打卡按钮样式 */
+.checkin-btn {
+  width: 100%;
+  height: 52px;
+  background-color: #187a11;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+  box-shadow: 0 2px 5px rgba(24, 122, 17, 0.2);
+}

@@ -1,0 +1,160 @@
+
+/* 全局背景 */
+page.data-v-461d1d79 {
+  background: linear-gradient(135deg, #f9f7f0 0%, #f0e9d8 100%);
+  height: 100%;
+  font-family: "KaiTi", "STKaiti", serif, "PingFang SC", sans-serif;
+}
+.status-bar.data-v-461d1d79 {
+  width: 100%;
+}
+
+/* 导航栏：确保 100% 宽度，高度固定，绿色不变 */
+.nav-bar.data-v-461d1d79 {
+  width: 100%;
+  height: 44px;
+  background-color: #2d8659;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  position: relative;
+  z-index: 10;
+}
+.back-btn.data-v-461d1d79,
+.nav-right.data-v-461d1d79 {
+  width: 40px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+}
+.nav-btn-hover.data-v-461d1d79 {
+  opacity: 0.8;
+}
+.nav-title.data-v-461d1d79 {
+  flex: 1;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* 页面容器：调整内边距，使内容更居中美观 */
+.login-container.data-v-461d1d79 {
+  background-color: #fff8e7;
+  position: relative;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 60rpx;
+}
+
+/* Logo 区域：适当增加上边距，避免太靠上 */
+.logo-section.data-v-461d1d79 {
+  text-align: center;
+  margin: 80rpx 0 100rpx;
+  animation: fadeInDown-461d1d79 0.8s ease-out;
+}
+.title.data-v-461d1d79 {
+  font-size: 64rpx;
+  font-weight: bold;
+  color: #5a4a42;
+  text-shadow: 0 4rpx 12rpx rgba(90, 74, 66, 0.15);
+  letter-spacing: 8rpx;
+  margin-bottom: 20rpx;
+}
+.subtitle.data-v-461d1d79 {
+  font-size: 28rpx;
+  color: #8b7b70;
+  letter-spacing: 4rpx;
+}
+.form-container.data-v-461d1d79 {
+  width: 100%;
+  max-width: 560rpx;
+  animation: fadeInUp-461d1d79 0.8s ease-out 0.2s both;
+}
+.input-group.data-v-461d1d79 {
+  position: relative;
+  margin-bottom: 36rpx;
+  width: 100%;
+}
+.input-field.data-v-461d1d79 {
+  width: 100%;
+  height: 96rpx;
+  padding: 0 36rpx;
+  background: rgba(255, 255, 255, 0.85);
+  border: 2rpx solid #e8e0d5;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  color: #5a4a42;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  box-shadow: 0 8rpx 24rpx rgba(139, 123, 112, 0.08);
+}
+.input-field.data-v-461d1d79:focus {
+  border-color: #c1a88f;
+  box-shadow: 0 12rpx 32rpx rgba(139, 123, 112, 0.15);
+  transform: translateY(-4rpx);
+}
+.login-btn.data-v-461d1d79 {
+  width: 100%;
+  height: 96rpx;
+  background: linear-gradient(120deg, #8b7b70, #6a5a4f);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 18rpx;
+  border: none;
+  margin-top: 40rpx;
+  transition: all 0.3s ease;
+}
+.footer-links.data-v-461d1d79 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 560rpx;
+  margin-top: 30rpx;
+  padding: 0 36rpx;
+  box-sizing: border-box;
+}
+.link.data-v-461d1d79 {
+  color: #8b7b70;
+  font-size: 26rpx;
+  text-decoration: none;
+  text-align: center;
+}
+.footer.data-v-461d1d79 {
+  margin-top: 40rpx;
+  text-align: center;
+  width: 100%;
+}
+.agreement.data-v-461d1d79 {
+  font-size: 24rpx;
+  color: #aaa;
+  display: block;
+}
+@keyframes fadeInDown-461d1d79 {
+from {
+    opacity: 0;
+    transform: translateY(-30rpx);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+@keyframes fadeInUp-461d1d79 {
+from {
+    opacity: 0;
+    transform: translateY(30rpx);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}

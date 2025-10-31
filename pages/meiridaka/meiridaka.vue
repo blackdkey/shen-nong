@@ -53,6 +53,9 @@
 	<navigator url='/pages/jingluoxuewei/jingluoxuewei'>经络穴位</navigator>
 	<navigator url='/pages/jiankangyinshi/jiankangyinshi'>健康饮食</navigator>
 	<navigator url='/pages/yianku/yianku'>医案库</navigator>
+	<navigator url="/pages/zhongyiketang/zhongyiketang">中医课堂</navigator>
+	<navigator url='/pages/3Dyaocai/3Dyaocai'>3D药材</navigator>
+	<navigator url='/pages/Login/Login'>登录</navigator>
   </view>
 </template>
 
@@ -111,7 +114,6 @@ export default {
   min-height: 100vh;
   background-color: #ffffff;
   padding: 0 15px;
-  padding-top: calc(70px + var(--status-bar-height, 0));
   box-sizing: border-box;
 }
 

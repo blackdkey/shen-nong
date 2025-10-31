@@ -1,0 +1,24 @@
+"use strict";
+const _imports_0 = "/static/搜索.png";
+const _imports_1$1 = "/static/收藏 (2).png";
+const _imports_2 = "/static/时间.png";
+const _imports_3 = "/static/针灸.png";
+const _imports_4 = "/static/艾灸.png";
+const _imports_5 = "/static/推拿.png";
+const _imports_6 = "/static/更多.png";
+const _imports_7 = "/static/中医.png";
+const _imports_8 = "/static/养生之道.png";
+const _imports_9 = "/static/艾灸之道.png";
+const _imports_1 = "/static/筛选2.png";
+exports._imports_0 = _imports_0;
+exports._imports_1 = _imports_1$1;
+exports._imports_1$1 = _imports_1;
+exports._imports_2 = _imports_2;
+exports._imports_3 = _imports_3;
+exports._imports_4 = _imports_4;
+exports._imports_5 = _imports_5;
+exports._imports_6 = _imports_6;
+exports._imports_7 = _imports_7;
+exports._imports_8 = _imports_8;
+exports._imports_9 = _imports_9;
+//# sourceMappingURL=../../.sourcemap/mp-weixin/common/assets.js.map

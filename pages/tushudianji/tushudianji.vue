@@ -1,13 +1,11 @@
 <template>
   <view class="container">
-    <!-- 顶部白色空间（保持原有高度） -->
-    <view class="top-white-space"></view>
+    <!-- 状态栏占位（统一方法） -->
+    <view class="status-bar" :style="{ height: statusBarHeight + 'px' }"></view>
     
     <!-- 自定义导航栏 -->
     <view class="custom-nav">
-      <view class="nav-left">
-        <u-icon name="arrow-left" color="#ffffff" size="20"></u-icon>
-      </view>
+      <view class="back-btn" @tap="goBack" hover-class="back-btn--hover">＜</view>
       <view class="nav-center">图书典籍</view>
       <view class="nav-right">
         <u-icon name="more-dot" color="#ffffff" size="22"></u-icon>
@@ -15,7 +13,7 @@
       </view>
     </view>
     
-    <!-- 自定义搜索框 -->
+    <!-- 搜索框 -->
     <view class="search-container">
       <view class="search-box">
         <u-icon name="search" color="#cccccc" size="16" class="search-icon"></u-icon>
@@ -28,57 +26,46 @@
       </view>
     </view>
     
-    <!-- 内容滚动区 -->
-    <scroll-view class="content-scroll" scroll-y>
-      <view class="content-container">
-        <!-- 左侧导航栏 -->
-        <view class="left-nav">
-          <view class="nav-item active">
-            <view class="nav-icon">
-              <image src="/static/书.png" mode="aspectFit" class="nav-img"></image>
+    <!-- 内容区 -->
+    <view class="content-wrapper" :style="{ top: contentTop + 'px' }">
+      <scroll-view class="content-scroll" scroll-y>
+        <view class="content-container">
+          <!-- 左侧导航 -->
+          <view class="left-nav">
+            <view 
+              class="nav-item" 
+              :class="{ active: activeNav === index }" 
+              v-for="(nav, index) in navList" 
+              :key="index"
+              @click="activeNav = index"
+            >
+              <view class="nav-icon">
+                <image :src="nav.icon" mode="aspectFit" class="nav-img"></image>
+              </view>
+              <text class="nav-text">{{ nav.name }}</text>
             </view>
-            <text class="nav-text">经典医著</text>
           </view>
-          <view class="nav-item">
-            <view class="nav-icon">
-              <image src="/static/展示-叶子.png" aspectFit class="nav-img"></image>
-            </view>
-            <text class="nav-text">方剂典籍</text>
-          </view>
-          <view class="nav-item">
-            <view class="nav-icon">
-              <image src="/static/齿轮.png" mode="aspectFit" class="nav-img"></image>
-            </view>
-            <text class="nav-text">针灸类书</text>
-          </view>
-          <view class="nav-item">
-            <view class="nav-icon">
-              <image src="/static/爱心.png" mode="aspectFit" class="nav-img"></image>
-            </view>
-            <text class="nav-text">养生保健</text>
-          </view>
-          <view class="nav-item">
-            <view class="nav-icon">
-              <image src="/static/医院.png" mode="aspectFit" class="nav-img"></image>
-            </view>
-            <text class="nav-text">现代医论</text>
-          </view>
-        </view>
-        
-        <!-- 右侧典籍列表 -->
-        <view class="book-list">
-          <view class="book-item" v-for="(book, index) in books" :key="index">
-            <image :src="book.cover" class="book-cover" mode="aspectFill"></image>
-            <view class="book-info">
-              <text class="book-title">{{ book.title }}</text>
-              <text class="book-author">作者: {{ book.author }}</text>
-              <text class="book-publisher">出版社: {{ book.publisher }}</text>
-              <text class="book-desc">{{ book.description }}</text>
+          
+          <!-- 右侧书籍列表 -->
+          <view class="book-list">
+            <view 
+              class="book-item" 
+              v-for="(book, index) in books" 
+              :key="index"
+              @click="goBookDetail(book)"
+            >
+              <image :src="book.cover" class="book-cover" mode="aspectFill"></image>
+              <view class="book-info">
+                <text class="book-title">{{ book.title }}</text>
+                <text class="book-author">作者: {{ book.author }}</text>
+                <text class="book-publisher">出版社: {{ book.publisher }}</text>
+                <text class="book-desc">{{ book.description }}</text>
+              </view>
             </view>
           </view>
         </view>
-      </view>
-    </scroll-view>
+      </scroll-view>
+    </view>
   </view>
 </template>
 
@@ -86,8 +73,18 @@
 export default {
   data() {
     return {
+      statusBarHeight: 20, // 默认值20px
+      contentTop: 0, // 内容区动态定位
       searchText: '',
       switchStatus: true,
+      activeNav: 0, // 当前选中导航
+      navList: [
+        { name: '经典医著', icon: '/static/书.png' },
+        { name: '方剂典籍', icon: '/static/展示-叶子.png' },
+        { name: '针灸类书', icon: '/static/齿轮.png' },
+        { name: '养生保健', icon: '/static/爱心.png' },
+        { name: '现代医论', icon: '/static/医院.png' }
+      ],
       books: [
         {
           title: '黄帝内经',
@@ -119,42 +116,76 @@ export default {
         }
       ]
     }
+  },
+  onLoad() {
+    // 同步获取状态栏高度
+    try {
+      const systemInfo = uni.getSystemInfoSync()
+      this.statusBarHeight = systemInfo.statusBarHeight || 20
+      
+      // 计算内容区定位（状态栏 + 导航栏 + 搜索框高度）
+      const navHeight = 50 // 导航栏高度
+      const searchHeight = 66 // 搜索框高度
+      this.contentTop = this.statusBarHeight + navHeight + searchHeight
+    } catch (e) {
+      console.log('获取系统信息失败，使用默认值')
+    }
+  },
+  methods: {
+    goBack() {
+      uni.navigateBack()
+    },
+    goBookDetail(book) {
+      uni.navigateTo({
+        url: '/pages/bookDetail?title=' + encodeURIComponent(book.title)
+      })
+    }
   }
 }
 </script>
 
 <style scoped>
-/* 顶部白色空间（保持原高度不变） */
-.top-white-space {
-  height: calc(var(--status-bar-height, 0px) + 20px); /* 状态栏高度 + 20px额外留白 */
-  background-color: #ffffff;
-  width: 100%;
+/* 基础样式 */
+.container {
+  position: relative;
+  height: 100vh;
+  background-color: #f5f5f5;
 }
 
-/* 自定义导航栏（关键：消除与顶部留白的间距） */
+/* 状态栏（统一方法） */
+.status-bar {
+  width: 100%;
+  background-color: #ffffff; /* 与导航栏同色 */
+}
+
+/* 导航栏 */
 .custom-nav {
   height: 50px;
   display: flex;
   align-items: center;
+  padding: 0 16px;
   background-color: #00a651;
-  padding: 0 15px;
-  position: fixed;
-  top: calc(var(--status-bar-height, 0px) + 20px); /* 紧贴顶部留白下方 */
-  left: 0;
-  right: 0;
-  z-index: 999;
+  position: sticky;
+  top: var(--status-bar-height);
+  z-index: 10;
 }
 
-.nav-left {
-  margin-right: 10px;
+.back-btn {
+  font-size: 24px;
+  color: white;
+  margin-right: 12px;
+}
+
+.back-btn--hover {
+  opacity: 0.8;
 }
 
 .nav-center {
   flex: 1;
-  font-size: 18px;
-  font-weight: 500;
-  color: #ffffff;
   text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
 }
 
 .nav-right {
@@ -163,25 +194,21 @@ export default {
   gap: 15px;
 }
 
-/* 搜索框容器（消除内部冗余间距） */
+/* 搜索框 */
 .search-container {
-  padding: 5px 15px; /* 最小化内边距 */
+  padding: 15px;
   background-color: #00a651;
-  position: fixed;
-  top: calc(var(--status-bar-height, 0px) + 20px + 50px); /* 紧贴导航栏下方 */
-  left: 0;
-  right: 0;
-  z-index: 998;
+  position: sticky;
+  top: calc(var(--status-bar-height) + 50px);
+  z-index: 9;
 }
 
-/* 自定义搜索框样式 */
 .search-box {
-  background-color: #ffffff;
-  border-radius: 8px;
   height: 36px;
+  background: white;
+  border-radius: 18px;
   display: flex;
   align-items: center;
-  justify-content: center;
   padding: 0 15px;
 }
 
@@ -190,140 +217,114 @@ export default {
 }
 
 .search-input {
-  flex: 0 1 auto;
+  flex: 1;
   height: 100%;
   font-size: 14px;
-  color: #333333;
-  border: none;
-  outline: none;
-  background: transparent;
-  min-width: 0;
-  text-align: center;
+  color: #333;
 }
 
-.search-input::placeholder {
-  color: #cccccc;
-  font-size: 14px;
-  text-align: center;
-}
-
-/* 内容滚动区（核心：消除与搜索框的间距） */
-.content-scroll {
-  width: 100%;
-  height: calc(100vh - 50px - 46px - var(--status-bar-height, 0px) - 20px); /* 重新计算高度 */
-  position: fixed;
-  top: calc(var(--status-bar-height, 0px) + 20px + 50px + 46px); /* 紧贴搜索框底部 */
+/* 内容区 */
+.content-wrapper {
+  position: absolute;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
 }
 
-/* 内容容器 */
+.content-scroll {
+  height: 100%;
+}
+
 .content-container {
   display: flex;
   min-height: 100%;
-  padding-bottom: 20px;
-  padding-top: 5px; /* 最小化顶部内边距 */
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* 左侧导航栏 */
+/* 左侧导航 */
 .left-nav {
-  width: 80px;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 8px; /* 减少顶部内边距 */
-  margin-right: 10px;
+  width: 85px;
+  background: white;
+  padding-top: 10px;
 }
 
 .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 22px; /* 微调间距 */
-  color: #666666;
-  opacity: 0.7;
-  width: 100%;
-  padding: 10px 0;
-  box-sizing: border-box;
+  padding: 12px 0;
+  margin-bottom: 5px;
+  color: #666;
 }
 
 .nav-item.active {
-  color: #00a651;
-  opacity: 1;
-  background-color: #f0f7f3;
+  background: #f0f7f3;
   border-radius: 0 15px 15px 0;
+  color: #00a651;
 }
 
 .nav-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #f0f7f3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 6px;
+  width: 28px;
+  height: 28px;
+  margin-bottom: 5px;
 }
 
 .nav-img {
-  width: 22px;
-  height: 22px;
+  width: 100%;
+  height: 100%;
 }
 
 .nav-text {
   font-size: 12px;
-  text-align: center;
 }
 
-/* 右侧典籍列表 */
+/* 书籍列表 */
 .book-list {
   flex: 1;
-  padding: 5px 15px 0 0; /* 减少顶部内边距 */
+  padding: 10px 15px 10px 5px;
 }
 
 .book-item {
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 13px;
-  margin-bottom: 12px; /* 减少书籍项间距 */
   display: flex;
-  gap: 13px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
 }
 
 .book-cover {
   width: 80px;
   height: 110px;
-  border-radius: 6px;
-  flex-shrink: 0;
-  background-color: #f5f5f5;
+  border-radius: 4px;
+  background: #eee;
 }
 
 .book-info {
   flex: 1;
+  margin-left: 12px;
 }
 
 .book-title {
   font-size: 16px;
   font-weight: 600;
-  color: #333333;
-  margin-bottom: 4px;
+  color: #333;
+  margin-bottom: 6px;
   display: block;
 }
 
-.book-author, .book-publisher {
+.book-author, 
+.book-publisher {
   font-size: 12px;
-  color: #999999;
-  margin-bottom: 2px;
+  color: #999;
+  margin-bottom: 4px;
   display: block;
 }
 
 .book-desc {
   font-size: 13px;
-  color: #666666;
-  margin-top: 6px;
+  color: #666;
+  margin-top: 8px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

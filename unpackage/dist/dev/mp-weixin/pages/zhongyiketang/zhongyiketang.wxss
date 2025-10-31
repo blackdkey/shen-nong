@@ -1,0 +1,259 @@
+
+.container.data-v-9e0f7c4f {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* 状态栏占位 */
+.status-bar.data-v-9e0f7c4f {
+  width: 100%;
+}
+
+/* 顶部导航栏 */
+.navbar.data-v-9e0f7c4f {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 0 16px;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.back-btn.data-v-9e0f7c4f {
+  font-size: 24px;
+  margin-right: 12px;
+}
+.back-btn--hover.data-v-9e0f7c4f {
+  transform: scale(1.1);
+}
+.title.data-v-9e0f7c4f {
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: 16px;
+}
+.search-box.data-v-9e0f7c4f {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 4px;
+  padding: 6px 12px;
+  flex: 0.6;
+  margin-right: 12px;
+}
+.search-icon.data-v-9e0f7c4f {
+  width: 13px;
+  height: 13px;
+  margin-right: 3px;
+}
+.search-input.data-v-9e0f7c4f {
+  flex: 1;
+  font-size: 14px;
+  color: #333;
+  background: transparent;
+  border: none;
+}
+
+/* 分类标签 */
+.category-tabs.data-v-9e0f7c4f {
+  display: flex;
+  background-color: white;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+.tab-item.data-v-9e0f7c4f {
+  flex: 1;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 15px;
+  color: #666;
+  position: relative;
+}
+.tab-item.active.data-v-9e0f7c4f {
+  color: #4CAF50;
+  font-weight: 500;
+}
+.tab-item.active.data-v-9e0f7c4f::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background-color: #4CAF50;
+  border-radius: 3px;
+}
+
+/* 主内容区 */
+.content.data-v-9e0f7c4f {
+  padding: 16px;
+}
+
+/* 留白区域 */
+.spacing-15.data-v-9e0f7c4f {
+  height: 15px;
+}
+.spacing-12.data-v-9e0f7c4f {
+  height: 12px;
+}
+
+/* 统一功能容器 */
+.function-container.data-v-9e0f7c4f {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+/* 功能行样式 */
+.function-row.data-v-9e0f7c4f {
+  display: flex;
+}
+.first-row.data-v-9e0f7c4f {
+  padding: 18px 20px; /* 第一行上下内边距增加 */
+}
+.second-row.data-v-9e0f7c4f {
+  padding: 15px 10px;
+}
+
+/* 分隔线 */
+.divider.data-v-9e0f7c4f {
+  height: 1px;
+  background-color: #f5f5f5;
+  margin: 0 15px;
+}
+
+/* 功能项样式 */
+.function-item.data-v-9e0f7c4f {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* 第一行居中对齐 */
+}
+
+/* 第一行：图标文字水平排列容器 */
+.horizontal-group.data-v-9e0f7c4f {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+}
+
+/* 第二行：图标文字垂直排列容器 */
+.vertical-group.data-v-9e0f7c4f {
+  display: flex;
+  flex-direction: column; /* 垂直排列 */
+  align-items: center; /* 水平居中对齐 */
+}
+
+/* 图标容器 - 统一尺寸 */
+.icon-container.data-v-9e0f7c4f {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 第一行图标：圆形 */
+.folder-icon.data-v-9e0f7c4f, .study-icon.data-v-9e0f7c4f {
+  margin-right: 10px; /* 水平排列时图标右侧间距 */
+}
+
+/* 第二行图标：椭圆形 */
+.acupuncture-icon.data-v-9e0f7c4f, .moxibustion-icon.data-v-9e0f7c4f, .tuina-icon.data-v-9e0f7c4f, .more-icon.data-v-9e0f7c4f {
+  width: 55px; /* 宽度增加，与设计图匹配 */
+  height: 32px; /* 高度调整 */
+  border-radius: 16px; /* 椭圆形 */
+  margin-bottom: 8px; /* 垂直排列时图标下方间距 */
+}
+
+/* 图标颜色（与设计图完全匹配） */
+.folder-icon.data-v-9e0f7c4f {
+  background-color: #8a8a8a; /* 灰色 */
+}
+.study-icon.data-v-9e0f7c4f {
+  background-color: #00bfa5; /* 青绿色 */
+}
+.acupuncture-icon.data-v-9e0f7c4f {
+  background-color: #e0654f; /* 红色 */
+}
+.moxibustion-icon.data-v-9e0f7c4f {
+  background-color: #8a8299; /* 紫色 */
+}
+.tuina-icon.data-v-9e0f7c4f {
+  background-color: #b98e87; /* 棕色 */
+}
+.more-icon.data-v-9e0f7c4f {
+  background-color: #959d8a; /* 绿色 */
+}
+
+/* 图标图片大小 */
+.icon-img.data-v-9e0f7c4f {
+  width: 20px;
+  height: 20px;
+}
+
+/* 文字样式 */
+.function-text.data-v-9e0f7c4f {
+  font-size: 16px; /* 第一行文字增大 */
+  color: #333;
+}
+
+/* 第一行特殊文字样式 */
+.study-text.data-v-9e0f7c4f {
+  color: #00bfa5; /* 青绿色文字 */
+  font-weight: 500;
+}
+
+/* 第二行文字样式 */
+.second-row .function-text.data-v-9e0f7c4f {
+  font-size: 14px; /* 第二行文字略小 */
+  color: #333;
+  text-align: center; /* 文字居中 */
+}
+
+/* 悬停效果 */
+.item-hover.data-v-9e0f7c4f {
+  transform: translateY(-2px);
+}
+
+/* 知识卡片样式 */
+.knowledge-cards.data-v-9e0f7c4f {
+  display: flex;
+  flex-direction: column;
+}
+.card-item.data-v-9e0f7c4f {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.card-hover.data-v-9e0f7c4f {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.card-img.data-v-9e0f7c4f {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+.card-content.data-v-9e0f7c4f {
+  padding: 12px 15px;
+}
+.card-title.data-v-9e0f7c4f {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 3px;
+  display: block;
+}
+.card-desc.data-v-9e0f7c4f {
+  font-size: 12px;
+  color: #999;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

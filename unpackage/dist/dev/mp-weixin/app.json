@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "pages/meiridaka/meiridaka",
+    "pages/tushudianji/tushudianji",
+    "pages/nanxingzhuanqv/nanxingzhuanqv",
+    "pages/nvxingzhuanqv/nvxingzhuanqv",
+    "pages/jingluoxuewei/jingluoxuewei",
+    "pages/jiankangyinshi/jiankangyinshi",
+    "pages/yianku/yianku",
+    "pages/zhongyiketang/zhongyiketang",
+    "pages/3Dyaocai/3Dyaocai",
+    "pages/Login/Login"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {}
+}

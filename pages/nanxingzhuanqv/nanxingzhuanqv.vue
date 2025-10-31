@@ -9,29 +9,29 @@
       <view class="nav-title">男性专区</view>
     </view>
 
-    <!-- 轮播图（仅图片轮播，保持原色系） -->
+    <!-- 轮播图 -->
     <view class="banner-container">
       <swiper class="banner-swiper" indicator-dots circular autoplay interval="3000">
-        <swiper-item v-for="(img, index) in bannerImages" :key="index">
-          <view class="banner" :style="{ backgroundImage: 'url(' + img + ')' }"></view>
+        <swiper-item>
+          <view class="banner" :style="{ backgroundImage: 'url(/static/男轮播.png)' }"></view>
         </swiper-item>
       </swiper>
     </view>
 
-    <!-- 六个功能按钮（添加点击反馈效果） -->
+    <!-- 六个功能按钮 -->
     <view class="func-grid">
       <view class="func-item" 
             v-for="(item, index) in funcItems" 
             :key="index" 
             @click="handleFuncClick(index, item.name)"
-            :class="{ active: isActive[index], click: isClicking[index] }">
+            :class="{ click: isClicking[index] }">
         <view class="item-icon" :style="{ backgroundImage: 'url(' + item.icon + ')' }"></view>
         <view class="item-name">{{ item.name }}</view>
         <view class="item-arrow">→</view>
-	  </view>
+      </view>
     </view>
 
-    <!-- 四个小按钮（保留原蓝灰+橙色选中，优化圆角） -->
+    <!-- 四个小按钮 -->
     <view class="tag-list">
       <view class="tag-item" 
             :class="{ active: activeTag === index }" 
@@ -42,9 +42,9 @@
       </view>
     </view>
 
-    <!-- 三个专区模块（优化排版和阴影） -->
+    <!-- 三个专区模块 -->
     <view class="topic-modules">
-      <view class="module-item" v-for="(module, index) in topicModules" :key="index" hover-class="module-item--hover">
+      <view class="module-item" v-for="(module, index) in topicModules" :key="index">
         <view class="module-card">
           <view class="module-img" :style="{ backgroundImage: 'url(' + module.img + ')' }"></view>
           <view class="module-text">
@@ -65,15 +65,9 @@
 export default {
   data() {
     return {
-      statusBarHeight: 0,
-      isActive: [false, false, false, false, false, false],
-	  isClicking: [false, false, false, false, false, false], // 新增点击状态数组
+      statusBarHeight: 20, // 默认值20 20, // 默认值20px
+      isClicking: [false, false, false, false, false, false],
       activeTag: 0,
-      // 轮播图图片列表（新增）
-      bannerImages: [
-        '/static/男轮播.png' // 实际轮播图1
-      ],
-      // 功能按钮数据（保留原图标路径）
       funcItems: [
         { name: '体质自测', icon: '/static/自己-01.png' },
         { name: '症状自检', icon: '/static/医防结合.png' },
@@ -82,7 +76,6 @@ export default {
         { name: '精力提升', icon: '/static/精力-copy.png' },
         { name: '食疗推荐', icon: '/static/刀叉.png' }
       ],
-      // 专区模块数据
       topicModules: [
         {
           img: '/static/男1.png',
@@ -103,67 +96,49 @@ export default {
           likeCount: '3.2万'
         }
       ]
-    };
+    }
   },
   onLoad() {
-    // 获取状态栏高度
-    const _this = this;
-    uni.getSystemInfo({
-      success(res) {
-        _this.statusBarHeight = res.statusBarHeight || 20;
-      }
-    });
+    // 同步获取状态栏高度
+    try {
+      const systemInfo = uni.getSystemInfoSync()
+      this.statusBarHeight = systemInfo.statusBarHeight || 20
+    } catch (e) {
+      console.log('获取状态栏高度失败，使用默认值')
+    }
   },
   methods: {
-	// 优化点击处理函数，添加状态反馈
     handleFuncClick(index, name) {
-      // 设置点击状态为true，0.1秒后恢复
-      this.$set(this.isClicking, index, true);
+      this.$set(this.isClicking, index, true)
       setTimeout(() => {
-        this.$set(this.isClicking, index, false);
-      }, 100);
-      
-      // 显示提示信息
-      this.showToast(name);
-      
-      // 切换激活状态（如果需要保留激活效果）
-      this.isActive = this.isActive.map((_, i) => i === index);
+        this.$set(this.isClicking, index, false)
+        uni.showToast({ 
+          title: `进入${name}`, 
+          icon: 'none',
+          position: 'bottom'
+        })
+      }, 100)
     },
     goBack() {
-      uni.navigateBack();
-    },
-    showToast(title) {
-      uni.showToast({ 
-        title, 
-        icon: 'none',
-        duration: 1500,
-        position: 'bottom'
-      });
+      uni.navigateBack()
     }
   },
   computed: {
     tags() {
-      return ['前列腺', '脾胃', '睡眠', '性功能'];
+      return ['前列腺', '脾胃', '睡眠', '性功能']
     }
   }
-};
+}
 </script>
 
 <style>
-/* 基础样式 */
-page {
-  background-color: #f5f5f5;
-  color: #333;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
 /* 状态栏 */
 .status-bar {
   width: 100%;
-  background: transparent;
+  background-color: #ffffff; /* 与导航栏同色 */
 }
 
-/* 导航栏（保留原蓝灰色） */
+/* 导航栏 */
 .nav-bar {
   height: 46px;
   background-color: #335c81;
@@ -171,234 +146,141 @@ page {
   align-items: center;
   padding: 0 15px;
   color: white;
+  position: relative;
 }
 
 .nav-back {
   font-size: 22px;
   margin-right: 10px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.nav-back--hover {
-  transform: scale(1.1);
-  opacity: 0.9;
 }
 
 .nav-title {
   font-size: 18px;
   font-weight: 500;
-  flex-shrink: 0;
 }
 
-.nav-actions {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-}
-
-.action-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: white;
-  margin-right: 2px;
-}
-
-.action-camera {
-  font-size: 19px;
-  margin-left: 15px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.action-camera--hover {
-  transform: scale(1.15);
-}
-
-/* 轮播图（仅图片轮播+指示器） */
+/* 轮播图 */
 .banner-container {
-  padding: 0 15px;
-  margin-top: 12px;
+  padding: 10px 15px;
 }
 
 .banner-swiper {
-  border-radius: 14px;
+  height: 170px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .banner {
-  height: 170px;
+  width: 100%;
+  height: 100%;
   background-size: cover;
-  background-position: center;
 }
 
-/* 六个功能按钮（保留蓝灰底色，优化细节） */
+/* 功能按钮 */
 .func-grid {
   padding: 0 15px;
-  margin-top: 20px;
+  margin-top: 15px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  gap: 12px;
 }
 
 .func-item {
-  background-color: #8993a3; /* 原蓝灰底色保留 */
-  border-radius: 14px;
-  padding: 20px 15px;
+  background-color: #8993a3;
+  border-radius: 12px;
+  padding: 15px;
   display: flex;
   align-items: center;
   color: white;
-  transition: all 0.15s ease;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.07); /* 新增轻微阴影 */
-  position: relative;
-  overflow: hidden;
-  transition: all 0.15s ease;
-}
-/* 点击反馈效果 */
-.func-item.click {
-  transform: scale(0.95);
-  opacity: 0.85;
-}
-/* 点击波纹效果（可选增强效果） */
-.func-item::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 120px;
-  height: 120px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  transform: scale(0) translate(-50%, -50%);
-  transition: transform 0.3s ease;
-}
-.func-item.click::after {
-  transform: scale(1) translate(-50%, -50%);
+  transition: all 0.2s;
 }
 
-.func-item.active {
-  background-color: #8993a3; /* 原点击深色保留 */
-  transform: scale(0.985);
+.func-item.click {
+  transform: scale(0.95);
+  opacity: 0.9;
 }
 
 .item-icon {
-  width: 26px; /* 图标稍放大 */
+  width: 26px;
   height: 26px;
-  margin-right: 12px;
+  margin-right: 10px;
   background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .item-name {
   flex: 1;
-  font-size: 16px;
-  font-weight: 500; /* 文字加粗 */
+  font-size: 15px;
 }
 
 .item-arrow {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 17px;
+  font-size: 16px;
 }
 
-/* 四个小按钮（保留原蓝灰+橙色选中） */
+/* 标签按钮 */
 .tag-list {
   padding: 0 15px;
-  margin-top: 25px;
+  margin-top: 20px;
   display: flex;
   gap: 10px;
 }
 
 .tag-item {
   flex: 1;
+  padding: 8px 0;
   text-align: center;
-  padding: 9px 0; /* 稍增内边距 */
-  border-radius: 22px; /* 更圆润的圆角 */
+  background-color: #8993a3;
+  border-radius: 20px;
+  color: white;
   font-size: 14px;
-  color: white !important;
-  background-color: #8993a3 !important; /* 原蓝灰底色保留 */
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .tag-item.active {
-  background-color: #ffb134 !important; /* 原橙色选中保留 */
-  color: white !important;
-  transform: translateY(-2px); /* 选中时轻微上浮 */
-  box-shadow: 0 4px 8px rgba(255,177,52,0.2); /* 橙色光晕 */
-  font-weight: 500;
+  background-color: #ffb134;
 }
 
-/* 三个专区模块（优化排版和阴影） */
+/* 专题模块 */
 .topic-modules {
-  padding: 0 15px;
-  margin-top: 22px;
+  padding: 15px;
   display: flex;
+  flex-direction: column;
   gap: 15px;
 }
 
-.module-item {
-  flex: 1;
-  transition: transform 0.2s ease;
-}
-
-.module-item--hover {
-  transform: translateY(-3px);
-}
-
 .module-card {
-  background-color: white;
-  border-radius: 14px;
+  background: white;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.09); /* 增强卡片阴影 */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .module-img {
-  width: 100%;
-  height: 145px; /* 图片高度优化 */
+  height: 140px;
   background-size: cover;
-  background-position: center;
-  background-color: #e5e5e5;
 }
 
 .module-text {
-  padding: 15px; /* 文字区padding优化 */
+  padding: 12px;
 }
 
 .module-title {
   font-size: 16px;
-  font-weight: 600; /* 标题加粗 */
-  color: #333;
-  margin-bottom: 6px;
-  line-height: 1.3;
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
 .module-desc {
   font-size: 13px;
   color: #666;
-  line-height: 1.4;
-  margin-bottom: 12px;
-  display: -webkit-box; /* 文字超出两行省略 */
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin-bottom: 10px;
 }
 
 .module-like {
   font-size: 12px;
   color: #999;
-  display: flex;
-  align-items: center;
 }
 
 .module-like text:first-child {
+  color: #ff6b6b;
   margin-right: 5px;
-  color: #ff6b6b; /* 爱心变红 */
-}
-
-.like-count {
-  color: #666;
 }
 </style>
